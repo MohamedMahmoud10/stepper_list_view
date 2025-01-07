@@ -8,6 +8,7 @@ class StepPainterWidget extends StatelessWidget {
     required this.stepperContent,
     required this.isLast,
     required this.stepperWidget,
+    this.customWidget,
     super.key,
   });
 
@@ -15,19 +16,13 @@ class StepPainterWidget extends StatelessWidget {
   final Widget stepperContent;
   final bool isLast;
   final PreferredSizeWidget stepperWidget;
+  final Widget? customWidget;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 5,
-            right: 5,
-          ),
-          child: stepperWidget,
-        ),
         Expanded(
           child: CustomPaint(
             painter: RootPainter(
@@ -44,6 +39,14 @@ class StepPainterWidget extends StatelessWidget {
                 const SizedBox(
                   width: 4,
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 5,
+                    right: 5,
+                    left: 5,
+                  ),
+                  child: stepperWidget,
+                ),
                 Expanded(
                   child: stepperContent,
                 ),
@@ -51,6 +54,16 @@ class StepPainterWidget extends StatelessWidget {
             ),
           ),
         ),
+        customWidget != null
+            ? Padding(
+                padding: const EdgeInsets.only(
+                  top: 5,
+                  right: 5,
+                  left: 5,
+                ),
+                child: customWidget,
+              )
+            : const SizedBox.shrink(),
       ],
     );
   }
@@ -58,12 +71,12 @@ class StepPainterWidget extends StatelessWidget {
 
 class RootPainter extends CustomPainter {
   RootPainter(
-      this.avatar,
-      this.pathColor,
-      this.strokeWidth,
-      this.textDecoration,
-      this.isLast,
-      ) {
+    this.avatar,
+    this.pathColor,
+    this.strokeWidth,
+    this.textDecoration,
+    this.isLast,
+  ) {
     _paint = Paint()
       ..color = pathColor!
       ..style = PaintingStyle.stroke

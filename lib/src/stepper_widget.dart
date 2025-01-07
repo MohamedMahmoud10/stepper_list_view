@@ -11,6 +11,7 @@ class StepperWidget<R, C> extends StatefulWidget {
     required this.isLast,
     super.key,
     required this.stepperWidgetBuilder,
+     this.customWidget,
   });
 
   final R root;
@@ -21,6 +22,7 @@ class StepperWidget<R, C> extends StatefulWidget {
 
   final StepperThemeData? stepperThemeData;
   final bool isLast;
+  final Widget ?customWidget;
 
   @override
   StepperWidgetState<R, C> createState() => StepperWidgetState<R, C>();
@@ -49,6 +51,7 @@ class StepperWidgetState<R, C> extends State<StepperWidget<R, C>> {
         ),
         isLast: widget.isLast,
         stepperWidget: stepperWidget,
+        customWidget: widget.customWidget,
       ),
     );
   }

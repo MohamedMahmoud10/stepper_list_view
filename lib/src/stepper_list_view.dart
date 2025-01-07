@@ -18,6 +18,7 @@ class StepperListView extends StatelessWidget {
     this.addSemanticIndexes,
     this.reverse,
     this.showStepperInLast,
+    this.customWidget,
   });
 
   final List<StepperItemData> stepperData;
@@ -34,6 +35,7 @@ class StepperListView extends StatelessWidget {
   final bool? addSemanticIndexes;
   final bool? reverse;
   final bool? showStepperInLast;
+  final Widget? customWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -55,20 +57,21 @@ class StepperListView extends StatelessWidget {
             return stepWidget != null
                 ? PreferredSize(
                     preferredSize: stepSize ?? const Size.fromWidth(20),
-                    child: stepWidget!(_, data),
+                    child: stepWidget!(context, data),
                   )
                 : const PreferredSize(
                     preferredSize: Size.zero,
                     child: SizedBox(),
                   );
           },
-          stepperAvatarBuilder: (_, data) {
-            return stepAvatar(_, data);
+          stepperAvatarBuilder: (context, data) {
+            return stepAvatar(context, data);
           },
           stepperContentBuilder: (_, data) {
-            return stepContentWidget(_, data);
+            return stepContentWidget(context, data);
           },
           stepperThemeData: stepperThemeData,
+          customWidget: customWidget,
         );
       },
     );
